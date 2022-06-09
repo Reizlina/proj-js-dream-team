@@ -1,0 +1,61 @@
+.gallery {
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  &__list {
+    margin-bottom: 40px;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    margin: 10px 0 5px 0;
+  }
+
+  &__text {
+    color: $accent-color;
+    margin-bottom: 5px;
+  }
+
+  &__year {
+    position: relative;
+    margin-left: 7px;
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 2px;
+      height: 13px;
+      left: -7px;
+      right: 0;
+      background-color: $accent-color;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .gallery {
+    padding: 60px 0;
+
+    &__list {
+      margin-bottom: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    &__item {
+      width: calc(50% - 30px);
+      margin: 15px;
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+
+    &__item {
+      width: calc(33% - 15px);
+      margin: 8px;
+    }
+  }
+}
