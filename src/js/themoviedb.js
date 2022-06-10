@@ -3,6 +3,7 @@ import axios from 'axios';
 export class UnsplashApi {
   #BASE_URL = 'https://api.themoviedb.org/3/';
   #API_KEY = 'c4c535d4c92d9e8cd45d9f8a1dc15d0d';
+  #IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
   constructor() {
     this.searchQuery = '';
