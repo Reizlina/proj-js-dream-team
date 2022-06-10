@@ -1,5 +1,8 @@
 // header
 .header {
+
+  padding: 40px 20px 92px;
+
   background: rgba(0, 0, 0, 0.56),
     url(/src/images/header/mobile/mobile-bg-1x.png) center/cover no-repeat;
 
@@ -26,11 +29,6 @@
   }
 }
 
-// container
-.container {
-  padding: 40px 20px 92px;
-}
-
 // nav
 .menu {
   &__list {
@@ -52,7 +50,6 @@
   &__item--current::after {
     content: '';
     display: block;
-    width: 32px;
 
     border: 1px solid $accent-color;
   }
@@ -60,7 +57,7 @@
 
 // form
 .search-films {
-  margin-top: 50px;
+  margin-top: 60px;
 
   &__inner {
     position: relative;
@@ -139,6 +136,9 @@
 // tablet
 @media (min-width: 768px) {
   .header {
+
+  padding: 40px 32px 80px;
+
     background: rgba(0, 0, 0, 0.56),
       url(/src/images/header/tablet/tablet-bg-1x.png) center/cover no-repeat;
 
@@ -161,6 +161,9 @@
   }
 
   .search-films {
+
+    margin-top: 40px;
+
     &__query {
       width: 336px;
     }
