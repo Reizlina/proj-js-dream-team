@@ -16,7 +16,6 @@ export class UnsplashApi {
       `${this.#BASE_URL}trending/movie/day?api_key=${this.#API_KEY}`,
       {
         params: {
-          //   per_page: 40,
           page: this.page,
         },
       }
@@ -25,15 +24,13 @@ export class UnsplashApi {
 
   // Поиск фильмов
 
-  searchFilm() {
+  searchFilm(query) {
     return axios.get(
       `${this.#BASE_URL}search/movie?api_key=${this.#API_KEY}&`,
       {
         params: {
-          language: 'en-US',
-          query: '',
+          query,
           page: this.page,
-          include_adult: false,
         },
       }
     );
@@ -41,15 +38,14 @@ export class UnsplashApi {
 
   // инфо о фильме для модалки
 
-  infoAboutFilm() {
+  infoAboutFilm(movie_id) {
     return axios.get(
-      `${this.#BASE_URL}movie/{movie_id}?api_key=${this.#API_KEY}&`,
-      {
-        params: {
-          language: 'en-US',
-          //   page: this.page,
-        },
-      }
+      `${this.#BASE_URL}movie/{movie_id}?api_key=${this.#API_KEY}&`
+      // {
+      // params: {
+      //   page: this.page,
+      // },
+      // }
     );
   }
 
