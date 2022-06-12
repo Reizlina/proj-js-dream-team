@@ -6,6 +6,14 @@
     margin-bottom: 40px;
   }
 
+  &__item:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  &__img {
+    max-width: 280px;
+  }
+
   &__title {
     text-transform: uppercase;
     margin: 10px 0 5px 0;
@@ -47,6 +55,10 @@
       width: calc(50% - 30px);
       margin: 15px;
     }
+
+    &__img {
+      max-width: 336px;
+    }
   }
 }
 
@@ -57,5 +69,9 @@
       width: calc(33% - 15px);
       margin: 8px;
     }
+
+    &__img {
+    max-width: 309px;
+  }
   }
 }

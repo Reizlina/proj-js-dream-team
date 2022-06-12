@@ -2,21 +2,25 @@
   <div class="container">
     <div class="header__inner-container">
       <div class="header__logo">
+        <a href="/src/index.html" class="header__link">
         <img
           class="header__logo--image"
           src="/src/images/header/logo/film.svg"
           alt="logo"
         />
+        </a>
+        <a href="/src/index.html" class="header__link">
         <p class="header__logo--title">Filmoteka</p>
+      </a>
       </div>
 
       <nav class="menu">
         <ul class="menu__list">
           <li class="menu__item menu__item--current">
-            <a class="menu__link" href="#">Home</a>
+            <a class="menu__link" href="/src/index.html">Home</a>
           </li>
           <li class="menu__item">
-            <a class="menu__link" href="#">my library</a>
+            <a class="menu__link" href="/src/library.html">my library</a>
           </li>
         </ul>
       </nav>
@@ -26,11 +30,14 @@
       <div class="search-films__inner">
         <input
           class="search-films__query"
+          name="searchQuery"
           type="text"
           placeholder="Search films..."
+          autocomplete="off"
         />
         <button class="search-films__btn" type="submit"></button>
       </div>
+      <p class="err-sr" aria-hidden="true">Search result not successful. Enter the correct movie name and we</p>
     </form>
   </div>
 </header>
