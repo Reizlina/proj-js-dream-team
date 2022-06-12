@@ -3,7 +3,7 @@ import { UnsplashApi } from '../js/themoviedb';
 
 const unsplashApi = new UnsplashApi();
 const containerPagination = document.getElementById('pagination');
-console.log(unsplashApi.fetchPopularFilms());
+// console.log(unsplashApi.fetchPopularFilms());
 
 const createPagination = ({ el }) => {
   const options = {
