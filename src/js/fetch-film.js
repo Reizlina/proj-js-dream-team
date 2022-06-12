@@ -7,23 +7,35 @@ const unsplashApi = new UnsplashApi();
 
 const filmsPromise = unsplashApi.fetchPopularFilms();
 
+console.log(filmsPromise);
+
+const filmGenres = unsplashApi.findGenre();
+
 filmsPromise.then(result => {
   const films = result.data.results;
   renderFilms(films);
-
-  console.log(films[0].genre_ids);
 });
 
 function renderFilms(films) {
+  
+  filmGenres.then(result => {
+    const genre = result.data.genres;
+    const genName = genre.map(genre => genre.name);
+    const genId = genre.map(genre => genre.id);
+    console.log(genName);
+    console.log(genId);
+    localStorage.setItem(genId, genName);
+  });
+
   const markup = films
     .map(film => {
       return `
       <li class="gallery__item">
         <img class="gallery__img" src=https://image.tmdb.org/t/p/w500${
-          film.backdrop_path
+          film.poster_path
         } alt=${film.original_title}>
         <h3 class="gallery__title">${film.title}</h3>
-        <p class="gallery__text">${film.genre_ids}
+        <p class="gallery__text">${localStorage.getItem(film)}
           <span class="gallery__year">${film.release_date.slice(0, 4)}</span>
         </p>
       </li>`;
@@ -31,5 +43,3 @@ function renderFilms(films) {
     .join('');
   return (gall.innerHTML = markup);
 }
-
-
