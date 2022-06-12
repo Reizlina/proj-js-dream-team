@@ -1,7 +1,6 @@
 // header
 .header {
-
-  padding: 40px 20px 92px;
+  padding: 40px 20px 44px;
 
   background: rgba(0, 0, 0, 0.56),
     url(/src/images/header/mobile/mobile-bg-1x.png) center/cover no-repeat;
@@ -22,6 +21,7 @@
 
   &__logo {
     display: flex;
+    align-items: flex-end;
   }
 
   &__logo--title {
@@ -132,12 +132,22 @@
     background: $accent-color;
   }
 }
+// error search
+.err-sr {
+  margin-top: 20px;
+
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.14;
+
+  opacity: 0;
+  color: red;
+}
 
 // tablet
 @media (min-width: 768px) {
   .header {
-
-  padding: 40px 32px 80px;
+    padding: 40px 32px 44px;
 
     background: rgba(0, 0, 0, 0.56),
       url(/src/images/header/tablet/tablet-bg-1x.png) center/cover no-repeat;
@@ -161,7 +171,6 @@
   }
 
   .search-films {
-
     margin-top: 40px;
 
     &__query {

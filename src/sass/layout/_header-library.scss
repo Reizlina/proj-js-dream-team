@@ -5,7 +5,7 @@
 
 // header
 .header {
-  padding: 40px 20px 92px;
+  padding: 40px 20px 62px;
 
   background: rgba(0, 0, 0, 0.56),
     url(/src/images/header/library/mobile/mobile-bg-1x.jpeg) center/cover
@@ -28,6 +28,7 @@
 
   &__logo {
     display: flex;
+    align-items: flex-end;
   }
 
   &__logo--title {
@@ -83,7 +84,8 @@
 // tablet
 @media (min-width: 768px) {
   .header {
-    padding: 40px 32px 80px;
+    padding: 40px 32px 60px;
+
 
     background: rgba(0, 0, 0, 0.56),
       url(/src/images/header/library/tablet/tablet-bg-1x.jpeg) center/cover
@@ -127,6 +129,7 @@
 // desktop
 @media (min-width: 1024px) {
   .header {
+
     background: rgba(0, 0, 0, 0.56),
       url(/src/images/header/library/desktop/desktop-bg-1x.jpeg) center/cover
         no-repeat;
