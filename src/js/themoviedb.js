@@ -11,6 +11,7 @@ export class UnsplashApi {
   }
 
   // НЕ УДАЛЯТЬ !!!
+
   findIds() {
     fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=c4c535d4c92d9e8cd45d9f8a1dc15d0d&language=en-US').then(response => {
       if (!response.ok) {
@@ -68,7 +69,7 @@ export class UnsplashApi {
 
   infoAboutFilm(movie_id) {
     return axios.get(
-      `${this.#BASE_URL}movie/{movie_id}?api_key=${this.#API_KEY}&`
+      `${this.#BASE_URL}movie/${movie_id}?api_key=${this.#API_KEY}&`
       // {
       // params: {
       //   page: this.page,

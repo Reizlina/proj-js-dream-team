@@ -2,7 +2,7 @@ import axios from 'axios';
 import { UnsplashApi } from './themoviedb';
 import { createPagination } from './pagination';
 
-const paginationBtn = document.querySelector('.tui-page-btn');
+const containerPagination = document.querySelector('#pagination');
 
 const gall = document.querySelector('.gallery__list');
 
@@ -32,16 +32,27 @@ function renderFilms(films) {
 
   pagination.on('afterMove', event => {
     const currentPage = event.page;
-    const galleryPage = films.results;
+    unsplashApi.page = currentPage;
     // запрос за пейджем и в запросе мой каррент будет равен карент пейджу
-    console.log(currentPage);
-    console.log(galleryPage);
+    // console.log(currentPage);
+    // console.log(unsplashApi.page);
+
+    unsplashApi
+      .fetchPopularFilms()
+      .then(value => {
+        // value.page
+        console.log(value);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    // вернет промис его нужно обработать
   });
 
   const markup = films.results
     .map(film => {
       return `
-      <li class="gallery__item">
+      <li class="gallery__item" data-id="${film.id}">
         <img class="gallery__img" src=https://image.tmdb.org/t/p/w500${
           film.poster_path
         } alt=${film.original_title}>
@@ -56,13 +67,14 @@ function renderFilms(films) {
 }
 
 // const onPageBtnClick = async event => {
-//   try {
-//    if(paginationBtn.textContent === )
-//   } catch (err) {
-//     console.log(err);
-//   }
+//   console.log(event.target);
+//   // try {
+//   //  if(paginationBtn.textContent === )
+//   // } catch (err) {
+//   //   console.log(err);
+//   // }
 // };
 
-// paginationBtn.addEventListener('click', onPageBtnClick);
+// containerPagination.addEventListener('click', onPageBtnClick);
 
 // console.log(paginationBtn);
