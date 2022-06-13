@@ -50,7 +50,6 @@ function renderFilms(film) {
 }
 function openModal(event) {
   const liId = event.target.closest('[data-id]').getAttribute('data-id');
-  console.log(liId);
 
   unsplashApi.infoAboutFilm(liId).then(({ data }) => {
     modalContainer.innerHTML = renderFilms(data);
