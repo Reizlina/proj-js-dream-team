@@ -23,20 +23,21 @@ export class UnsplashApi {
       })
       .then(data => {
         console.log(data.genres);
+        localStorage.setItem("ganre_ids", JSON.stringify(data.genres));
 
-        let names = [];
+        // let names = [];
         // let str = '';
 
-        for (let el of data.genres) {
-          if (arr.includes(el.id)) {
-            console.log(el.name);
-            names.push(el);
-          }
-        }
-        console.log(names);
-        const namesArr = names.map(name => name.name);
-        console.log(namesArr);
-        return namesArr;
+        // for (let el of data.genres) {
+        //   if (arr.includes(el.id)) {
+        //     console.log(el.name);
+        //     names.push(el);
+        //   }
+        // }
+        // console.log(names);
+        // const namesArr = names.map(name => name.name);
+        // console.log(namesArr);
+        // return namesArr;
         // str = namesArr.join(' ');
         // console.log(str);
         // return str;
@@ -94,6 +95,3 @@ export class UnsplashApi {
   //     this.page = 1;
   //   }
 }
-
-
-
