@@ -5,10 +5,10 @@ const unsplashApi = new UnsplashApi();
 const containerPagination = document.getElementById('pagination');
 // console.log(unsplashApi.fetchPopularFilms());
 
-const createPagination = ({ el }) => {
+export const createPagination = ({ total_results, total_pages } = {}) => {
   const options = {
-    totalItems: el.total_results,
-    itemsPerPage: el.total_results / el.total_pages,
+    totalItems: total_results,
+    itemsPerPage: total_results / total_pages,
     visiblePages: 5,
     page: 1,
     centerAlign: true,
@@ -32,9 +32,10 @@ const createPagination = ({ el }) => {
         '</a>',
     },
   };
-  const pagination = new Pagination('containerPagination', options);
+  const pagination = new Pagination(containerPagination, options);
   // paganation.on('afterMove', event => {
   //   const currentPage = event.page;
   //   console.log(currentPage);
   // });
+  // return;
 };

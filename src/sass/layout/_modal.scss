@@ -24,7 +24,7 @@
   background: #ffffff;
   width: 100%;
   border-radius: 5px;
-  
+
 
   &__backcall {
     display: flex;
@@ -94,7 +94,14 @@
   }
 
   &__button-org {
-    //   ______ modern ______
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid #fff;
+
+    //   ______normal ______
     // color: $primary-bg-color;
     // background-color: #ff6b01;
     margin-right: 20px;
@@ -127,16 +134,23 @@
         color: #ff6b01;
         background-position: 0;
     }
-    
+
   }
 
   &__button-trans {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid #fff;
+
     background-color: transparent;
     // border: 1px solid #000000;
     border-radius: 5px;
     padding: 13px 10px;
 
-    // width: 100%; 
+    // width: 100%;
     outline: 1px solid;
     outline-color: rgba(0, 0, 0,0.5);
     outline-offset: -1px;
@@ -149,7 +163,7 @@
       }
   }
 }
-    
+
 
 .close {
   position: absolute;

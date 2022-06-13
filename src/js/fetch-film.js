@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { UnsplashApi } from './themoviedb';
+import { createPagination } from './pagination';
 
-console.log();
+const paginationBtn = document.querySelector('.tui-page-btn');
 
 const gall = document.querySelector('.gallery__list');
 
@@ -18,6 +19,7 @@ filmsPromise.then(result => {
 });
 
 function renderFilms(films) {
+
   filmGenres.then(result => {
     const genre = result.data.genres;
     // const genName = genre.map(genre => {genre});
@@ -25,6 +27,12 @@ function renderFilms(films) {
     console.log(genre);
     localStorage.setItem('genres', JSON.stringify(genre));
   });
+
+
+  console.log(films);
+  createPagination(films);
+
+
 
   const markup = films.results
     .map(film => {
@@ -42,3 +50,15 @@ function renderFilms(films) {
     .join('');
   return (gall.innerHTML = markup);
 }
+
+// const onPageBtnClick = async event => {
+//   try {
+//    if(paginationBtn.textContent === )
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// paginationBtn.addEventListener('click', onPageBtnClick);
+
+// console.log(paginationBtn);
