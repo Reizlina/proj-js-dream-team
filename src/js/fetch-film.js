@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { UnsplashApi } from './themoviedb';
 import { createPagination } from './pagination';
 import { changeData } from './index';
@@ -11,9 +10,8 @@ const unsplashApi = new UnsplashApi();
 
 const filmsPromise = unsplashApi.fetchPopularFilms();
 
-const filmGenres = unsplashApi.findGenre();
-
 filmsPromise.then(result => {
+
   changeData(result.data);
   gall.innerHTML = markup(result.data.results);
 
@@ -22,6 +20,7 @@ filmsPromise.then(result => {
     page: result.data.page,
     totalPages: result.data.total_pages,
   });
+
 
   pagination.on('afterMove', event => {
     const currentPage = event.page;
@@ -79,6 +78,7 @@ function markup(elements) {
   return elements
     .map(el => {
       return `
+
     <li class="gallery__item" data-id="${el.id}">
       <img class="gallery__img" src="${el.poster_path}" alt=${el.original_title}>
       <h3 class="gallery__title">${el.title}</h3>
@@ -86,6 +86,7 @@ function markup(elements) {
         <span class="gallery__year">${el.release_date}</span>
       </p>
     </li>`;
+
     })
     .join('');
 }
