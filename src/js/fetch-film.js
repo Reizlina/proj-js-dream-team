@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { UnsplashApi } from './themoviedb';
 import { createPagination } from './pagination';
+import { changeData } from './index';
 
 const containerPagination = document.querySelector('#pagination');
 
@@ -10,24 +10,15 @@ const unsplashApi = new UnsplashApi();
 
 const filmsPromise = unsplashApi.fetchPopularFilms();
 
-const filmGenres = unsplashApi.findGenre();
-
 filmsPromise.then(result => {
   const films = result.data;
+  changeData(films);
   renderFilms(films);
   // console.log(films[0].genre_ids);
 });
 
 function renderFilms(films) {
-  filmGenres.then(result => {
-    const genre = result.data.genres;
-    // const genName = genre.map(genre => {genre});
-
-    // console.log(genre);
-    localStorage.setItem('genres', JSON.stringify(genre));
-  });
-
-  // console.log(films);
+  
   const pagination = createPagination(films);
 
   pagination.on('afterMove', event => {
@@ -53,12 +44,10 @@ function renderFilms(films) {
     .map(film => {
       return `
       <li class="gallery__item" data-id="${film.id}">
-        <img class="gallery__img" src=https://image.tmdb.org/t/p/w500${
-          film.poster_path
-        } alt=${film.original_title}>
+        <img class="gallery__img" src=${film.poster_path} alt=${film.original_title}>
         <h3 class="gallery__title">${film.title}</h3>
         <p class="gallery__text">${film.genre_ids}
-          <span class="gallery__year">${film.release_date.slice(0, 4)}</span>
+          <span class="gallery__year">${film.release_date}</span>
         </p>
       </li>`;
     })
