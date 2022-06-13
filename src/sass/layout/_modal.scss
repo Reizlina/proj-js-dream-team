@@ -94,7 +94,14 @@
   }
 
   &__button-org {
-    //   ______ modern ______
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid #fff;
+
+    //   ______normal ______
     // color: $primary-bg-color;
     // background-color: #ff6b01;
     margin-right: 20px;
@@ -131,6 +138,13 @@
   }
 
   &__button-trans {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    border: 1px solid #fff;
+
     background-color: transparent;
     // border: 1px solid #000000;
     border-radius: 5px;
