@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { UnsplashApi } from './themoviedb';
 
+console.log();
+
 const gall = document.querySelector('.gallery__list');
 
 const unsplashApi = new UnsplashApi();
 
 const filmsPromise = unsplashApi.fetchPopularFilms();
-
-console.log(filmsPromise);
 
 const filmGenres = unsplashApi.findGenre();
 
@@ -26,7 +26,8 @@ function renderFilms(films) {
     console.log(genId);
     localStorage.setItem(genId, genName);
   });
-
+  
+  
   const markup = films
     .map(film => {
       return `
@@ -35,7 +36,7 @@ function renderFilms(films) {
           film.poster_path
         } alt=${film.original_title}>
         <h3 class="gallery__title">${film.title}</h3>
-        <p class="gallery__text">${localStorage.getItem(film)}
+        <p class="gallery__text">${film.genre_ids}
           <span class="gallery__year">${film.release_date.slice(0, 4)}</span>
         </p>
       </li>`;
