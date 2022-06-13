@@ -2,7 +2,7 @@ import Pagination from 'tui-pagination';
 import { UnsplashApi } from '../js/themoviedb';
 
 const unsplashApi = new UnsplashApi();
-const containerPagination = document.getElementById('pagination');
+const containerPagination = document.querySelector('#pagination');
 // console.log(unsplashApi.fetchPopularFilms());
 
 export const createPagination = ({ total_results, total_pages } = {}) => {
@@ -37,5 +37,5 @@ export const createPagination = ({ total_results, total_pages } = {}) => {
   //   const currentPage = event.page;
   //   console.log(currentPage);
   // });
-  // return;
+  return pagination;
 };
