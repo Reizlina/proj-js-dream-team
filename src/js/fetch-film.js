@@ -12,23 +12,21 @@ const filmsPromise = unsplashApi.fetchPopularFilms();
 const filmGenres = unsplashApi.findGenre();
 
 filmsPromise.then(result => {
-  const films = result.data.results;
+  const films = result.data;
   renderFilms(films);
+  // console.log(films[0].genre_ids);
 });
 
 function renderFilms(films) {
-  
   filmGenres.then(result => {
     const genre = result.data.genres;
-    const genName = genre.map(genre => genre.name);
-    const genId = genre.map(genre => genre.id);
-    console.log(genName);
-    console.log(genId);
-    localStorage.setItem(genId, genName);
+    // const genName = genre.map(genre => {genre});
+
+    console.log(genre);
+    localStorage.setItem('genres', JSON.stringify(genre));
   });
-  
-  
-  const markup = films
+
+  const markup = films.results
     .map(film => {
       return `
       <li class="gallery__item">
