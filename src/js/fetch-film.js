@@ -19,7 +19,6 @@ filmsPromise.then(result => {
 });
 
 function renderFilms(films) {
-
   filmGenres.then(result => {
     const genre = result.data.genres;
     // const genName = genre.map(genre => {genre});
@@ -28,11 +27,16 @@ function renderFilms(films) {
     localStorage.setItem('genres', JSON.stringify(genre));
   });
 
-
   console.log(films);
-  createPagination(films);
+  const pagination = createPagination(films);
 
-
+  pagination.on('afterMove', event => {
+    const currentPage = event.page;
+    const galleryPage = films.results;
+    // запрос за пейджем и в запросе мой каррент будет равен карент пейджу
+    console.log(currentPage);
+    console.log(galleryPage);
+  });
 
   const markup = films.results
     .map(film => {
