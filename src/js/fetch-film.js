@@ -14,6 +14,7 @@ const filmGenres = unsplashApi.findGenre();
 filmsPromise.then(result => {
   const films = result.data.results;
   renderFilms(films);
+  // console.log(films[0].genre_ids);
 });
 
 function renderFilms(films) {
