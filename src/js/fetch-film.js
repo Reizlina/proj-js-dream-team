@@ -30,7 +30,7 @@ function renderFilms(films) {
   console.log(films);
   const pagination = createPagination(films);
 
-  pagination.on('afterMove', event => {
+pagination.on('afterMove', event => {
     const currentPage = event.page;
     unsplashApi.page = currentPage;
     // запрос за пейджем и в запросе мой каррент будет равен карент пейджу
