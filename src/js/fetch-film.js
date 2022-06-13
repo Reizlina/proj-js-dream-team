@@ -23,11 +23,11 @@ function renderFilms(films) {
     const genre = result.data.genres;
     // const genName = genre.map(genre => {genre});
 
-    console.log(genre);
+    // console.log(genre);
     localStorage.setItem('genres', JSON.stringify(genre));
   });
 
-  console.log(films);
+  // console.log(films);
   const pagination = createPagination(films);
 
   pagination.on('afterMove', event => {
