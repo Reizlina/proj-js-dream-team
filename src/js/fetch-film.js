@@ -17,17 +17,17 @@ filmsPromise.then(result => {
 });
 
 function renderFilms(films) {
-  
+
   filmGenres.then(result => {
     const genre = result.data.genres;
     const genName = genre.map(genre => genre.name);
     const genId = genre.map(genre => genre.id);
-    console.log(genName);
-    console.log(genId);
+    // console.log(genName);
+    // console.log(genId);
     localStorage.setItem(genId, genName);
   });
-  
-  
+
+
   const markup = films
     .map(film => {
       return `

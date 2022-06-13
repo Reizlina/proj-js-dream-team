@@ -10,6 +10,21 @@ export class UnsplashApi {
     this.page = 1;
   }
 
+  // НЕ УДАЛЯТЬ !!!
+  findIds(arr) {
+    fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=c4c535d4c92d9e8cd45d9f8a1dc15d0d&language=en-US').then(response => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    }).then(data => {
+      console.log(data)
+      console.log(data.genres)
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
   // ids
   findGenre() {
     return axios.get(
