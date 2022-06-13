@@ -24,7 +24,7 @@
   background: #ffffff;
   width: 100%;
   border-radius: 5px;
-  
+
 
   &__backcall {
     display: flex;
@@ -134,7 +134,7 @@
         color: #ff6b01;
         background-position: 0;
     }
-    
+
   }
 
   &__button-trans {
@@ -150,7 +150,7 @@
     border-radius: 5px;
     padding: 13px 10px;
 
-    // width: 100%; 
+    // width: 100%;
     outline: 1px solid;
     outline-color: rgba(0, 0, 0,0.5);
     outline-offset: -1px;
@@ -163,7 +163,7 @@
       }
   }
 }
-    
+
 
 .close {
   position: absolute;

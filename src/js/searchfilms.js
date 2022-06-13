@@ -11,8 +11,17 @@ const refs = {
 // variables
 const unsplashApi = new UnsplashApi();
 
+
 unsplashApi.findIds();
 const a = localStorage.setItem
+
+// local storage SET 'ganre_ids'
+// unsplashApi.findGenre();
+// const a = localStorage.getItem('ganre_ids');
+// console.log(a);
+// const b = JSON.parse(a);
+// console.log(b);
+
 
 // make markup
 const onSubmitSearchFilms = async e => {
@@ -21,7 +30,9 @@ const onSubmitSearchFilms = async e => {
 
   try {
     const { data } = await unsplashApi.searchFilm();
+
     console.log(data);
+
 
     if (data.total_pages === 0) {
       refs.errSr.style.opacity = 1;
