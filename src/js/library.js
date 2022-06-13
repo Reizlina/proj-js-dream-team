@@ -1,7 +1,7 @@
 // refs
 const refs = {
-  btnWatched: document.querySelector('.button__watched'),
-  btnQueue: document.querySelector('.button__queue'),
+  btnWatched: document.querySelector('.buttons__watched'),
+  btnQueue: document.querySelector('.buttons__queue'),
 }
 
 // onBtnWatchedClickIsActive
@@ -9,7 +9,6 @@ const refs = {
 const onBtnWatchedClickIsActive = e => {
   e.target.classList.add('is-active');
   refs.btnQueue.classList.remove('is-active');
-  console.log('waaaa');
 }
 
 refs.btnWatched.addEventListener('click', onBtnWatchedClickIsActive)
