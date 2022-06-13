@@ -30,7 +30,7 @@ function renderFilms(films) {
   console.log(films);
   const pagination = createPagination(films);
 
-pagination.on('afterMove', event => {
+  pagination.on('afterMove', event => {
     const currentPage = event.page;
     unsplashApi.page = currentPage;
     // запрос за пейджем и в запросе мой каррент будет равен карент пейджу
@@ -52,7 +52,7 @@ pagination.on('afterMove', event => {
   const markup = films.results
     .map(film => {
       return `
-      <li class="gallery__item">
+      <li class="gallery__item" data-id="${film.id}">
         <img class="gallery__img" src=https://image.tmdb.org/t/p/w500${
           film.poster_path
         } alt=${film.original_title}>
