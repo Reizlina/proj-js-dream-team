@@ -19,19 +19,20 @@ filmsPromise.then(result => {
 });
 
 function renderFilms(films) {
-  // filmGenres.then(result => {
-  //   const genre = result.data.genres;
-  //   const genName = genre.map(genre => genre);
-  //   // const genId = genre.map(genre => genre.id);
-  //   console.log(genName);
-  //   // console.log(genId);
-  //   localStorage.setItem('genId', genName);
-  // });
+
+  filmGenres.then(result => {
+    const genre = result.data.genres;
+    // const genName = genre.map(genre => {genre});
+
+    console.log(genre);
+    localStorage.setItem('genres', JSON.stringify(genre));
+  });
+
 
   console.log(films);
   createPagination(films);
 
-  // onPageBtnClick
+
 
   const markup = films.results
     .map(film => {
