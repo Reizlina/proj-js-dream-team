@@ -15,10 +15,9 @@
   window.addEventListener('keydown', closeModalEscape);
 
   function closeModalEscape(event) {
-    if (event.code !== 'Escape') {
-      return;
+    if (event.code === 'Escape') {
+      toggleModal();
     }
-    toggleModal();
   }
 
   refs.modal.addEventListener('click', closeModalScreen);
