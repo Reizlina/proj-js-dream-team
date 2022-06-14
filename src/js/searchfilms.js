@@ -17,7 +17,6 @@ const onSubmitSearchFilms = async e => {
   let searchQueryValue = e.currentTarget.elements.searchQuery.value;
   unsplashApi.searchQuery = searchQueryValue;
   console.log(searchQueryValue);
-
   try {
     const { data } = await unsplashApi.searchFilm();
 
