@@ -8,7 +8,6 @@ const gall = document.querySelector('.gallery__list');
 
 const unsplashApi = new UnsplashApi();
 
-
 unsplashApi.fetchPopularFilms().then(result => {
   changeData(result.data).then(() => {
     gall.innerHTML = markup(result.data.results);
@@ -39,37 +38,6 @@ unsplashApi.fetchPopularFilms().then(result => {
   });
 });
 
-// function renderFilms(films) {
-//   filmGenres.then(result => {
-//     const genre = result.data.genres;
-//     // const genName = genre.map(genre => {genre});
-
-//     // console.log(genre);
-//     localStorage.setItem('genres', JSON.stringify(genre));
-//   });
-//   // console.log(films);
-//   const pagination = createPagination(films);
-
-//   pagination.on('afterMove', event => {
-//     const currentPage = event.page;
-//     unsplashApi.page = currentPage;
-//     // запрос за пейджем и в запросе мой каррент будет равен карент пейджу
-//     // console.log(currentPage);
-//     // console.log(unsplashApi.page);
-
-//     unsplashApi
-//       .fetchPopularFilms()
-//       .then(value => {
-//         // value.page
-//         console.log(value);
-//       })
-//       .catch(error => {
-//         console.log(error);
-//       });
-//     // вернет промис его нужно обработать
-//   });
-// }
-
 function markup(elements) {
   return elements
     .map(el => {
@@ -85,16 +53,3 @@ function markup(elements) {
     })
     .join('');
 }
-
-// const onPageBtnClick = async event => {
-//   console.log(event.target);
-//   // try {
-//   //  if(paginationBtn.textContent === )
-//   // } catch (err) {
-//   //   console.log(err);
-//   // }
-// };
-
-// containerPagination.addEventListener('click', onPageBtnClick);
-
-// console.log(paginationBtn);
