@@ -1,4 +1,5 @@
 import { UnsplashApi } from './themoviedb';
+import { renderSpinner } from './spiner';
 const unsplashApi = new UnsplashApi();
 const modalContainer = document.querySelector('#js-module');
 const backdrop = document.querySelector('[data-modal]');
@@ -49,6 +50,8 @@ function renderFilms(film) {
   </div>`;
 }
 function openModal(event) {
+  modalContainer.innerHTML = renderSpinner();
+
   const liId = event.target.closest('[data-id]').getAttribute('data-id');
 
   unsplashApi.infoAboutFilm(liId).then(({ data }) => {
