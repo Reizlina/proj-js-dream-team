@@ -1,6 +1,6 @@
 import { UnsplashApi } from './themoviedb';
 
-import { renderSpinner } from './spiner';
+// import { renderSpinner } from './spiner';
 
 const unsplashApi = new UnsplashApi();
 const modalContainer = document.querySelector('#js-module');
@@ -52,13 +52,11 @@ function renderFilms(film) {
   </div>`;
 }
 function openModal(event) {
-
-
   if (event.target.nodeName === 'UL') {
     return;
   }
 
-   //modalContainer.innerHTML = renderSpinner();
+  //modalContainer.innerHTML = renderSpinner();
 
   const liId = event.target.closest('[data-id]').getAttribute('data-id');
 
