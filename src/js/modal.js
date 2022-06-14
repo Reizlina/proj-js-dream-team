@@ -51,6 +51,15 @@ function renderFilms(film) {
         </div>
   </div>`;
 }
+
+
+localStorage.setItem('watched', '');
+localStorage.setItem('queue', '');
+
+const watched = [];
+const queue = [];
+
+
 function openModal(event) {
   if (event.target.nodeName === 'UL') {
     return;
@@ -64,7 +73,37 @@ function openModal(event) {
     .infoAboutFilm(liId)
     .then(({ data }) => {
       backdrop.classList.toggle('is-hidden');
+
       modalContainer.innerHTML = renderFilms(data);
+      console.log(data);
+
+      // qweqweqweqweqweqweqweqwqe
+
+      const btnWatched = document.querySelector('.modal__button-org');
+
+      btnWatched.addEventListener('click', () => {
+        console.log('watched click');
+        if (!watched.includes(data.id)) {
+          watched.push(data.id);
+        }
+        console.log(watched);
+
+        localStorage.setItem('watched', JSON.stringify(watched));
+      });
+
+      const btnQueue = document.querySelector('.modal__button-trans');
+
+      btnQueue.addEventListener('click', () => {
+        if (!queue.includes(data.id)) {
+          queue.push(data.id);
+        }
+        console.log(queue);
+
+        localStorage.setItem('queue', JSON.stringify(queue));
+      })
+
+
+      // qweqweqweqwewqeqwewqeqweq
     })
     .finally(() => {
       document.querySelector('.backdrop-loader').remove();
