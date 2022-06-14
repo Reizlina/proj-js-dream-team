@@ -18,19 +18,15 @@
     if (event.code !== 'Escape') {
       return;
     }
-
     toggleModal();
   }
 
   refs.modal.addEventListener('click', closeModalScreen);
 
   function closeModalScreen(event) {
-    console.log(event.target);
-
     if (!event.target.classList.contains('backdrops--hidden')) {
       return;
     }
-
     toggleModal();
   }
 })();

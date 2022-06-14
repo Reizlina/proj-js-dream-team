@@ -1,5 +1,6 @@
 import { UnsplashApi } from './themoviedb';
 import { changeData } from './index';
+import { createPagination } from './pagination';
 import debounce from 'lodash.debounce';
 
 // refs
@@ -9,6 +10,7 @@ const refs = {
   errSr: document.querySelector('.err-sr'),
   input: document.querySelector('.search-films__query'),
 };
+const containerPagination = document.querySelector('#pagination');
 
 // variables
 const unsplashApi = new UnsplashApi();
@@ -16,44 +18,40 @@ const unsplashApi = new UnsplashApi();
 // make markup
 const onSubmitSearchFilms = async e => {
   e.preventDefault();
-  unsplashApi.fetchPopularFilms().then(result => {
+  const value = refs.input.value.trim().toLowerCase();
+  unsplashApi.searchQuery = value;
+
+  unsplashApi.searchFilm().then(result => {
     changeData(result.data).then(() => {
       refs.list.innerHTML = makeMarkup(result.data.results);
+
+      const pagination = createPagination({
+        totalItems: result.data.total_results,
+        page: result.data.page,
+        totalPages: result.data.total_pages,
+      });
+
+      pagination.on('afterMove', event => {
+        const currentPage = event.page;
+        unsplashApi.page = currentPage;
+
+        unsplashApi
+          .searchFilm()
+          .then(result => {
+            changeData(result.data).then(() => {
+              refs.list.innerHTML = makeMarkup(result.data.results);
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      });
     });
   });
   refs.errSr.style.opacity = 0;
-
-  const value = refs.input.value.trim().toLowerCase();
-  console.log(value);
-
-  unsplashApi.searchQuery = value;
-
-  // let searchQueryValue = e.currentTarget.elements.searchQuery.value;
-  // unsplashApi.searchQuery = searchQueryValue;
-  // console.log(searchQueryValue);
-
-  try {
-    const { data } = await unsplashApi.searchFilm();
-
-    console.log(data.results);
-
-    if (data.total_pages === 0) {
-      refs.errSr.style.opacity = 1;
-    } else {
-      changeData(data).then(() => {
-        refs.list.innerHTML = makeMarkup(data.results);
-        refs.errSr.style.opacity = 0;
-      });
-    }
-  } catch (err) {
-    console.log(err);
-  }
 };
 
-refs.form.addEventListener('input', debounce(onSubmitSearchFilms, 300));
-// refs.form.addEventListener('submit', onSubmitSearchFilms);
-
-// markup function
+refs.form.addEventListener('submit', onSubmitSearchFilms);
 
 function makeMarkup(data) {
   let markup = data

@@ -12,8 +12,6 @@ unsplashApi.fetchPopularFilms().then(result => {
   changeData(result.data).then(() => {
     gall.innerHTML = markup(result.data.results);
 
-    console.log(result.data.total_results);
-
     const pagination = createPagination({
       totalItems: result.data.total_results,
       page: result.data.page,
