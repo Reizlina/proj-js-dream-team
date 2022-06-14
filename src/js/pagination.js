@@ -6,6 +6,9 @@ const containerPagination = document.querySelector('#pagination');
 // console.log(unsplashApi.fetchPopularFilms());
 
 export const createPagination = ({ totalItems, totalPages, page } = {}) => {
+  console.log(totalItems);
+  console.log(totalPages);
+
   const options = {
     totalItems,
     itemsPerPage: totalItems / totalPages,
@@ -33,7 +36,8 @@ export const createPagination = ({ totalItems, totalPages, page } = {}) => {
     // },
     template: {
       page: '<a href="#" class="tui-page-btn">{{page}}</a>',
-      currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      currentPage:
+        '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
       disabledMoveButton(event) {
         if (event.type === 'first' || event.type === 'last') {
           return '<span></span>';
@@ -48,9 +52,11 @@ export const createPagination = ({ totalItems, totalPages, page } = {}) => {
 
         return `<a href="#" class="tui-page-btn tui-${event.type}"><span class="tui-ico-${event.type}">${event.type}</span></a>`;
       },
-  }
-}
+    },
+  };
   const pagination = new Pagination(containerPagination, options);
+
+  console.log(pagination);
   // paganation.on('afterMove', event => {
   //   const currentPage = event.page;
   //   console.log(currentPage);

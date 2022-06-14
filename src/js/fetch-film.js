@@ -8,37 +8,34 @@ const gall = document.querySelector('.gallery__list');
 
 const unsplashApi = new UnsplashApi();
 
-const filmsPromise = unsplashApi.fetchPopularFilms();
 
-filmsPromise.then(result => {
-  changeData(result.data);
-  gall.innerHTML = markup(result.data.results);
+unsplashApi.fetchPopularFilms().then(result => {
+  changeData(result.data).then(() => {
+    gall.innerHTML = markup(result.data.results);
 
-  const pagination = createPagination({
-    totalItems: result.data.total_results,
-    page: result.data.page,
-    totalPages: result.data.total_pages,
-  });
+    console.log(result.data.total_results);
 
+    const pagination = createPagination({
+      totalItems: result.data.total_results,
+      page: result.data.page,
+      totalPages: result.data.total_pages,
+    });
 
-  pagination.on('afterMove', event => {
-    const currentPage = event.page;
-    unsplashApi.page = currentPage;
-    // запрос за пейджем и в запросе мой каррент будет равен карент пейджу
-    // console.log(currentPage);
-    // console.log(unsplashApi.page);
+    pagination.on('afterMove', event => {
+      const currentPage = event.page;
+      unsplashApi.page = currentPage;
 
-    unsplashApi
-      .fetchPopularFilms()
-      .then(value => {
-        // value.page
-        console.log(value);
-        markup(value.data.results);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    // вернет промис его нужно обработать
+      unsplashApi
+        .fetchPopularFilms()
+        .then(result => {
+          changeData(result.data).then(() => {
+            gall.innerHTML = markup(result.data.results);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   });
 });
 
@@ -85,7 +82,6 @@ function markup(elements) {
         <span class="gallery__year">${el.release_date}</span>
       </p>
     </li>`;
-
     })
     .join('');
 }
