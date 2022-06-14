@@ -7,7 +7,7 @@ const modalContainer = document.querySelector('#js-module');
 const backdrop = document.querySelector('[data-modal]');
 const gallaryList = document.querySelector('.gallery__list');
 
-function renderFilms(film) {
+export function renderFilms(film) {
   return `<div class="modal__backcall">
         <div class="modal__img-box">
           <img
@@ -51,14 +51,14 @@ function renderFilms(film) {
         </div>
   </div>`;
 }
+// localStorage.setItem('watched', '');
+// localStorage.setItem('queue', '');
 
-
-localStorage.setItem('watched', '');
-localStorage.setItem('queue', '');
+const WATCHED = 'watched';
+const QUEUE = 'queue';
 
 const watched = [];
 const queue = [];
-
 
 function openModal(event) {
   if (event.target.nodeName === 'UL') {
@@ -77,33 +77,36 @@ function openModal(event) {
       modalContainer.innerHTML = renderFilms(data);
       console.log(data);
 
-      // qweqweqweqweqweqweqweqwqe
-
+      // !!!
+      
+      // btn refs
       const btnWatched = document.querySelector('.modal__button-org');
-
-      btnWatched.addEventListener('click', () => {
-        console.log('watched click');
-        if (!watched.includes(data.id)) {
-          watched.push(data.id);
-        }
-        console.log(watched);
-
-        localStorage.setItem('watched', JSON.stringify(watched));
-      });
-
       const btnQueue = document.querySelector('.modal__button-trans');
 
-      btnQueue.addEventListener('click', () => {
-        if (!queue.includes(data.id)) {
-          queue.push(data.id);
+      // btns functions
+      function onClickWatched() {
+
+        if (!watched.find(el => el.id === data.id)) {
+          watched.push(data);
         }
-        console.log(queue);
 
-        localStorage.setItem('queue', JSON.stringify(queue));
-      })
+        localStorage.setItem(WATCHED, JSON.stringify(watched));
+      }
+
+      function onClickQueue() {
+        if (!queue.find(el => el.id === data.id)) {
+          queue.push(data);
+        }
+
+        localStorage.setItem(QUEUE, JSON.stringify(queue));
+      }
 
 
-      // qweqweqweqwewqeqwewqeqweq
+      // btns listeners
+      btnWatched.addEventListener('click', onClickWatched);
+      btnQueue.addEventListener('click', onClickQueue);
+
+      // !!!
     })
     .finally(() => {
       document.querySelector('.backdrop-loader').remove();

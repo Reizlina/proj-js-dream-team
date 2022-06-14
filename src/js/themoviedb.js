@@ -78,3 +78,9 @@ export class UnsplashApi {
     );
   }
 }
+
+// library markup
+
+  // libraryMarkup(arr_obj) {
+
+  // }
