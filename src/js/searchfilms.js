@@ -22,6 +22,7 @@ const onSubmitSearchFilms = async e => {
   unsplashApi.searchQuery = value;
 
   unsplashApi.searchFilm().then(result => {
+    // console.log(result.data)
     changeData(result.data).then(() => {
       refs.list.innerHTML = makeMarkup(result.data.results);
 
