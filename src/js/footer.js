@@ -1,8 +1,8 @@
 (() => {
     const refs = {
-      openModalBtn: document.querySelector("[data-fran-open]"),
-      closeModalBtn: document.querySelector("[data-fran-close]"),
-      modal: document.querySelector("[data-fran]"),
+      openModalBtn: document.querySelector("[data-team-open]"),
+      closeModalBtn: document.querySelector("[data-team-close]"),
+      modal: document.querySelector("[data-team]"),
     };
   
     refs.openModalBtn.addEventListener("click", toggleModal);
@@ -11,4 +11,22 @@
     function toggleModal() {
       refs.modal.classList.toggle("backdrops--hidden");
     }
+    window.addEventListener('keydown', closeModalEscape);
+    function closeModalEscape(event) {
+      if (event.code !== 'Escape') {
+        return;
+      } 
+      toggleModal();
+    }
+    refs.modal.addEventListener('click', closeModalScreen);
+    function closeModalScreen(event) {
+      console.log(event.target);
+      if (!event.target.classList.contains('backdrops--hidden')) {
+        return;
+      }
+      toggleModal();
+    }
+
   })();
+
+  
