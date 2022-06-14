@@ -53,7 +53,7 @@ const onSubmitSearchFilms = async e => {
 
 refs.form.addEventListener('submit', onSubmitSearchFilms);
 
-function makeMarkup(data) {
+export function makeMarkup(data) {
   let markup = data
     .map(
       data => `<li class="gallery__item" data-id="${data.id}">
