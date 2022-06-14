@@ -7,8 +7,6 @@ export function changeData(data) {
     const getIds = localStorage.getItem('genre_ids');
     const parseIds = JSON.parse(getIds);
 
-    console.log(parseIds);
-
     data.results.forEach(el => {
       el.genre_ids.forEach((genre, ind, arr) => {
         for (let i = 0; i < parseIds.length; i += 1) {
@@ -26,13 +24,13 @@ export function changeData(data) {
         el.poster_path = 'https://image.tmdb.org/t/p/w500/' + el.poster_path;
       }
 
-      if (el.release_date.length > 4) {
+      if (el.release_date) {
         el.release_date = el.release_date.slice(0, 4);
       } else {
         el.release_date = 'release year unknown';
       }
 
-      if (el.genre_ids.length === 0) {
+      if (!el.genre_ids.length) {
         el.genre_ids = 'genre unknown';
       }
     });
