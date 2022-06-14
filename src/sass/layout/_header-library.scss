@@ -51,7 +51,13 @@
     line-height: 1.16;
     text-transform: uppercase;
 
-    color: #fff;
+    color: $header-main-color;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__link:hover,
+  &__link:focus {
+    color: $accent-color;
   }
 
   &__item--current::after {
@@ -63,7 +69,7 @@
 }
 
 // buttons
-.button {
+.buttons {
   display: flex;
   justify-content: center;
 
@@ -72,12 +78,14 @@
   &__watched {
     padding: 13px 46px;
     margin-right: 20px;
-    color: #fff;
+    color: $header-main-color;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &__queue {
     padding: 13px 57px;
-    color: #fff;
+    color: $header-main-color;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -85,7 +93,6 @@
 @media (min-width: 768px) {
   .header {
     padding: 40px 32px 60px;
-
 
     background: rgba(0, 0, 0, 0.56),
       url(/src/images/header/library/tablet/tablet-bg-1x.jpeg) center/cover
@@ -106,8 +113,16 @@
 
       font-size: 30px;
       line-height: 1.16;
-      color: #fff;
+      color: $header-main-color;
+
+      color: $header-main-color;
+      transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+
+      &__link:focus {
+        color: $accent-color;
+      }
   }
 
   .button {
@@ -129,7 +144,6 @@
 // desktop
 @media (min-width: 1024px) {
   .header {
-
     background: rgba(0, 0, 0, 0.56),
       url(/src/images/header/library/desktop/desktop-bg-1x.jpeg) center/cover
         no-repeat;

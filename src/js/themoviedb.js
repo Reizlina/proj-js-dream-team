@@ -10,9 +10,10 @@ export class UnsplashApi {
     this.page = 1;
   }
 
-  // ids
-  findGenre(arr) {
-    fetch(
+  // НЕ УДАЛЯТЬ !!!
+
+  findIds() {
+    return fetch(
       'https://api.themoviedb.org/3/genre/movie/list?api_key=c4c535d4c92d9e8cd45d9f8a1dc15d0d&language=en-US'
     )
       .then(response => {
@@ -22,28 +23,24 @@ export class UnsplashApi {
         return response.json();
       })
       .then(data => {
-        console.log(data.genres);
-
-        let names = [];
-        // let str = '';
-
-        for (let el of data.genres) {
-          if (arr.includes(el.id)) {
-            console.log(el.name);
-            names.push(el);
-          }
-        }
-        console.log(names);
-        const namesArr = names.map(name => name.name);
-        console.log(namesArr);
-        return namesArr;
-        // str = namesArr.join(' ');
-        // console.log(str);
-        // return str;
+        localStorage.setItem('genre_ids', JSON.stringify(data.genres));
       })
-      .catch(error => {
-        console.log(error);
+      .catch(err => {
+        console.log(err);
       });
+  }
+
+  // ids
+
+  findGenre() {
+    return axios.get(
+      `${this.#BASE_URL}genre/movie/list?api_key=${this.#API_KEY}`,
+      {
+        params: {
+          name: this.name,
+        },
+      }
+    );
   }
 
   // Популярные фильмы
@@ -77,7 +74,7 @@ export class UnsplashApi {
 
   infoAboutFilm(movie_id) {
     return axios.get(
-      `${this.#BASE_URL}movie/{movie_id}?api_key=${this.#API_KEY}&`
+      `${this.#BASE_URL}movie/${movie_id}?api_key=${this.#API_KEY}&`
       // {
       // params: {
       //   page: this.page,
@@ -94,6 +91,3 @@ export class UnsplashApi {
   //     this.page = 1;
   //   }
 }
-
-
-
