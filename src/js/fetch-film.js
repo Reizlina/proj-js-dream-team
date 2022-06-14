@@ -11,7 +11,6 @@ const unsplashApi = new UnsplashApi();
 const filmsPromise = unsplashApi.fetchPopularFilms();
 
 filmsPromise.then(result => {
-
   changeData(result.data);
   gall.innerHTML = markup(result.data.results);
 
