@@ -56,7 +56,7 @@ refs.form.addEventListener('submit', onSubmitSearchFilms);
 function makeMarkup(data) {
   let markup = data
     .map(
-      data => `<li class="gallery__item">
+      data => `<li class="gallery__item" data-id="${data.id}">
       <img class="gallery__img" src="${data.poster_path}" alt="movie image" height="455px">
       <h3 class="gallery__title">${data.original_title}</h3>
       <p class="gallery__text">
