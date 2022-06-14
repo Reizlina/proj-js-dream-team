@@ -1,7 +1,7 @@
 import { UnsplashApi } from './themoviedb';
-import { createPagination } from './pagination';
+// import { createPagination } from './pagination';
 // import { changeData } from './index';
-import { renderFilms } from './modal';
+// import { renderFilms } from './modal';
 // import { makeMarkup } from './searchfilms';
 // import { markup } from './fetch-film';
 
