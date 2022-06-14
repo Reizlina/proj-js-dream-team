@@ -75,22 +75,35 @@ function openModal(event) {
       backdrop.classList.toggle('is-hidden');
 
       modalContainer.innerHTML = renderFilms(data);
-      console.log(data);
 
       // !!!
-      
+
       // btn refs
       const btnWatched = document.querySelector('.modal__button-org');
       const btnQueue = document.querySelector('.modal__button-trans');
 
-      // btns functions
-      function onClickWatched() {
+      btnWatched.addEventListener('click', onHandleWatch);
 
-        if (!watched.find(el => el.id === data.id)) {
-          watched.push(data);
+      function onHandleWatch() {
+        let watchedArr = [];
+        if (!localStorage.getItem(WATCHED)) {
+          watchedArr.push(data);
+          localStorage.setItem(WATCHED, JSON.stringify(watchedArr));
+          btnWatched.textContent = 'remove from watched';
+          btnWatched.removeEventListener('click', onHandleWatch);
+          // снять обработчик
+        } else if (
+          localStorage.getItem(WATCHED).includes(JSON.stringify(data))
+        ) {
+          console.log('Watched film list includes this film!');
+        } else {
+          watchedArr = JSON.parse(localStorage.getItem(WATCHED));
+          watchedArr.push(data);
+          localStorage.setItem(WATCHED, JSON.stringify(watchedArr));
+          btnWatched.textContent = 'remove from watched';
+          btnWatched.removeEventListener('click', onHandleWatch);
+          // снять обработчик
         }
-
-        localStorage.setItem(WATCHED, JSON.stringify(watched));
       }
 
       function onClickQueue() {
@@ -100,7 +113,6 @@ function openModal(event) {
 
         localStorage.setItem(QUEUE, JSON.stringify(queue));
       }
-
 
       // btns listeners
       btnWatched.addEventListener('click', onClickWatched);
