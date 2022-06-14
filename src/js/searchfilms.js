@@ -17,8 +17,9 @@ const unsplashApi = new UnsplashApi();
 const onSubmitSearchFilms = async e => {
   e.preventDefault();
   unsplashApi.fetchPopularFilms().then(result => {
-    changeData(result.data);
-    refs.list.innerHTML = makeMarkup(result.data.results);
+    changeData(result.data).then(() => {
+      refs.list.innerHTML = makeMarkup(result.data.results);
+    });
   });
   refs.errSr.style.opacity = 0;
 
@@ -39,9 +40,10 @@ const onSubmitSearchFilms = async e => {
     if (data.total_pages === 0) {
       refs.errSr.style.opacity = 1;
     } else {
-      changeData(data);
-      refs.list.innerHTML = makeMarkup(data.results);
-      refs.errSr.style.opacity = 0;
+      changeData(data).then(() => {
+        refs.list.innerHTML = makeMarkup(data.results);
+        refs.errSr.style.opacity = 0;
+      });
     }
   } catch (err) {
     console.log(err);
