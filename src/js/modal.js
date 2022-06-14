@@ -1,6 +1,6 @@
 import { UnsplashApi } from './themoviedb';
 
-// import { renderSpinner } from './spiner';
+import { renderSpinner } from './spiner';
 
 const unsplashApi = new UnsplashApi();
 const modalContainer = document.querySelector('#js-module');
@@ -56,14 +56,19 @@ function openModal(event) {
     return;
   }
 
-  //modalContainer.innerHTML = renderSpinner();
+  document.body.insertAdjacentHTML('beforebegin', renderSpinner());
 
   const liId = event.target.closest('[data-id]').getAttribute('data-id');
 
-  unsplashApi.infoAboutFilm(liId).then(({ data }) => {
-    modalContainer.innerHTML = renderFilms(data);
-  });
-  backdrop.classList.toggle('is-hidden');
+  unsplashApi
+    .infoAboutFilm(liId)
+    .then(({ data }) => {
+      backdrop.classList.toggle('is-hidden');
+      modalContainer.innerHTML = renderFilms(data);
+    })
+    .finally(() => {
+      document.querySelector('.backdrop-loader').remove();
+    });
 
   const closeModalBtn = document.querySelector('.close');
 
