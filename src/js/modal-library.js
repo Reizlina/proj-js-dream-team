@@ -62,14 +62,9 @@ export function renderFilms(film) {
         </div>
   </div>`;
 }
-// localStorage.setItem('watched', '');
-// localStorage.setItem('queue', '');
 
 const WATCHED = 'watched';
 const QUEUE = 'queue';
-
-const watched = [];
-const queue = [];
 
 function openModal(event) {
   if (event.target.nodeName === 'UL') {
@@ -105,11 +100,6 @@ function openModal(event) {
         console.error('Get state error: ', error.message);
       }
 
-      // const watchedDataFromStorage = JSON.parse(
-      //   localStorage.getItem('watched')
-      // );
-
-      // !!!
       const watchedFilmFromStorage = watchedDataFromStorage.find(
         el => el.id === data.id
       );
@@ -131,7 +121,6 @@ function openModal(event) {
           btnWatched.removeEventListener('click', onHandleWatch);
           btnWatched.textContent = 'remove from watched';
           btnWatched.addEventListener('click', onHandleRemoveWatch);
-          // снять обработчик
         } else if (
           localStorage.getItem(WATCHED).includes(JSON.stringify(data))
         ) {
@@ -144,7 +133,6 @@ function openModal(event) {
           btnWatched.removeEventListener('click', onHandleWatch);
           btnWatched.textContent = 'remove from watched';
           btnWatched.addEventListener('click', onHandleRemoveWatch);
-          // снять обработчик
         }
       }
 
@@ -158,6 +146,7 @@ function openModal(event) {
         watchedFilm.splice(watchedFilmToRemove, 1);
 
         localStorage.setItem(WATCHED, JSON.stringify(watchedFilm));
+        changedData(watchedFilm);
         gallaryList.innerHTML = makeMarkup(watchedFilm);
 
         btnWatched.removeEventListener('click', onHandleRemoveWatch);
@@ -177,11 +166,6 @@ function openModal(event) {
         console.error('Get state error: ', error.message);
       }
 
-      // const queueDataFromStorage = JSON.parse(
-      //   localStorage.getItem('watched')
-      // );
-
-      // !!!
       const queueFilmFromStorage = queueDataFromStorage.find(
         el => el.id === data.id
       );
@@ -203,7 +187,6 @@ function openModal(event) {
           btnQueue.removeEventListener('click', onHandleQueue);
           btnQueue.textContent = 'remove from queue';
           btnQueue.addEventListener('click', onHandleRemoveQueue);
-          // снять обработчик
         } else if (localStorage.getItem(QUEUE).includes(JSON.stringify(data))) {
           console.log('queue film list includes this film!');
         } else {
@@ -214,7 +197,6 @@ function openModal(event) {
           btnQueue.removeEventListener('click', onHandleQueue);
           btnQueue.textContent = 'remove from queue';
           btnQueue.addEventListener('click', onHandleRemoveQueue);
-          // снять обработчик
         }
       }
 
@@ -226,18 +208,13 @@ function openModal(event) {
         queueFilm.splice(queueFilmToRemove, 1);
 
         localStorage.setItem(QUEUE, JSON.stringify(queueFilm));
-
+        changedData(queueFilm);
         gallaryList.innerHTML = makeMarkup(queueFilm);
 
         btnQueue.removeEventListener('click', onHandleRemoveQueue);
         btnQueue.textContent = 'add to queue';
         btnQueue.addEventListener('click', onHandleQueue);
       }
-
-      // // btns listeners
-      // btnQueue.addEventListener('click', onClickQueue);
-
-      // !!!
     })
     .finally(() => {
       document.querySelector('.backdrop-loader').remove();
@@ -271,7 +248,6 @@ function openModal(event) {
   }
 
   function makeMarkup(data) {
-    // console.log(data);
     let markup = data
       .map(
         data => `<li class="gallery__item" data-id="${data.id}">
@@ -285,6 +261,42 @@ function openModal(event) {
       )
       .join('');
     return markup;
+  }
+
+  // GENERE
+
+  function changedData(params) {
+    const getIds = localStorage.getItem('genre_ids');
+    const parseIds = JSON.parse(getIds);
+    console.log(params);
+    return params.forEach(param => {
+      param.genres.forEach((genre, ind, arr) => {
+        for (let i = 0; i < parseIds.length; i += 1) {
+          if (genre.id === parseIds[i].id) {
+            arr[ind] = parseIds[i].name;
+            break;
+          }
+        }
+      });
+
+      if (param.poster_path === null) {
+        param.poster_path =
+          'https://thumbs.dreamstime.com/b/%D1%81%D0%BA%D0%BE%D1%80%D0%BE-%D0%BD%D0%B0-%D0%B8%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D0%BE%D0%B9-%D0%B4%D0%BE%D1%81%D0%BA%D0%B5-%D0%BF%D0%BE%D1%8F%D0%B2%D0%B8%D1%82%D1%81%D1%8F-%D0%BF%D0%BB%D0%B0%D0%BA%D0%B0%D1%82-retro-%D1%81%D0%B2%D0%B5%D1%82%D1%8F%D1%89%D0%B8%D0%B9%D1%81%D1%8F-%D0%BD%D0%B5%D0%BE%D0%BD-159994270.jpg';
+      } else {
+        param.poster_path =
+          'https://image.tmdb.org/t/p/w500/' + param.poster_path;
+      }
+
+      if (param.release_date) {
+        param.release_date = param.release_date.slice(0, 4);
+      } else {
+        param.release_date = 'release year unknown';
+      }
+
+      if (!param.genres.length) {
+        param.genres = 'genre unknown';
+      }
+    });
   }
 }
 gallaryList.addEventListener('click', openModal);

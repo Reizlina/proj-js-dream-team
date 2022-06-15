@@ -23,8 +23,14 @@ const onSubmitSearchFilms = async e => {
 
   unsplashApi.searchFilm().then(result => {
     // console.log(result.data)
+    // changeData(result.data).then(() => {
+    //   refs.list.innerHTML = makeMarkup(result.data.results);
     changeData(result.data).then(() => {
-      refs.list.innerHTML = makeMarkup(result.data.results);
+      if (result.data.results.length === 0) {
+        refs.errSr.style.opacity = 1;
+      } else {
+        refs.list.innerHTML = makeMarkup(result.data.results);
+      }
 
       const pagination = createPagination({
         totalItems: result.data.total_results,
