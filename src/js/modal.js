@@ -91,13 +91,15 @@ function openModal(event) {
       const btnWatched = document.querySelector('.modal__button-org');
       const btnQueue = document.querySelector('.modal__button-trans');
 
+      // ! WATCHED
+
       let watchedDataFromStorage = null;
 
       try {
         watchedDataFromStorage = localStorage.getItem(WATCHED);
         watchedDataFromStorage =
           watchedDataFromStorage === null
-            ? undefined
+            ? []
             : JSON.parse(watchedDataFromStorage);
       } catch (error) {
         console.error('Get state error: ', error.message);
@@ -125,7 +127,10 @@ function openModal(event) {
         if (!localStorage.getItem(WATCHED)) {
           watchedArr.push(data);
           localStorage.setItem(WATCHED, JSON.stringify(watchedArr));
-          //btnWatched.removeEventListener('click', onHandleWatch);
+
+          btnWatched.removeEventListener('click', onHandleWatch);
+          btnWatched.textContent = 'remove from watched';
+          btnWatched.addEventListener('click', onHandleRemoveWatch);
           // снять обработчик
         } else if (
           localStorage.getItem(WATCHED).includes(JSON.stringify(data))
@@ -135,50 +140,99 @@ function openModal(event) {
           watchedArr = JSON.parse(localStorage.getItem(WATCHED));
           watchedArr.push(data);
           localStorage.setItem(WATCHED, JSON.stringify(watchedArr));
-          //btnWatched.textContent = 'remove from watched';
-          //btnWatched.removeEventListener('click', onHandleWatch);
+
+          btnWatched.removeEventListener('click', onHandleWatch);
+          btnWatched.textContent = 'remove from watched';
+          btnWatched.addEventListener('click', onHandleRemoveWatch);
           // снять обработчик
         }
       }
 
       function onHandleRemoveWatch() {
-        // 1 Нужно сначала достать с локала массив
         const watchedFilm = JSON.parse(localStorage.getItem(WATCHED));
-          console.log(watchedFilm)
-        // 2 потом найти через файндИндекс наш фильм
-        const watchedFilmToRemove = watchedFilm.findIndex(el => el.id === watchedFilmFromStorage.id);
-        console.log(watchedFilmToRemove);
-        // 3 сплайсом вырезать фильм
+
+        const watchedFilmToRemove = watchedFilm.findIndex(
+          el => el.id === data.id
+        );
+
         watchedFilm.splice(watchedFilmToRemove, 1);
-        console.log(watchedFilm);
-        // 4 и снова положить в локал
+
         localStorage.setItem(WATCHED, JSON.stringify(watchedFilm));
+
+        btnWatched.removeEventListener('click', onHandleRemoveWatch);
+        btnWatched.textContent = 'add to Watched';
+        btnWatched.addEventListener('click', onHandleWatch);
       }
 
-      function onClickQueue() {
+      // ! QUEUE
+
+      let queueDataFromStorage = null;
+
+      try {
+        queueDataFromStorage = localStorage.getItem(QUEUE);
+        queueDataFromStorage =
+          queueDataFromStorage === null ? [] : JSON.parse(queueDataFromStorage);
+      } catch (error) {
+        console.error('Get state error: ', error.message);
+      }
+
+      // const queueDataFromStorage = JSON.parse(
+      //   localStorage.getItem('watched')
+      // );
+
+      // !!!
+      const queueFilmFromStorage = queueDataFromStorage.find(
+        el => el.id === data.id
+      );
+
+      if (queueFilmFromStorage) {
+        btnQueue.addEventListener('click', onHandleRemoveQueue);
+        btnQueue.textContent = 'remove from watched';
+      } else {
+        btnQueue.addEventListener('click', onHandleQueue);
+      }
+
+      function onHandleQueue() {
         let queueArr = [];
+
         if (!localStorage.getItem(QUEUE)) {
           queueArr.push(data);
           localStorage.setItem(QUEUE, JSON.stringify(queueArr));
-          btnQueue.textContent = 'remove from watched';
-          btnQueue.removeEventListener('click', onClickQueue);
+
+          btnQueue.removeEventListener('click', onHandleQueue);
+          btnQueue.textContent = 'remove from queue';
+          btnQueue.addEventListener('click', onHandleRemoveQueue);
           // снять обработчик
-        } else if (
-          localStorage.getItem(QUEUE).includes(JSON.stringify(data))
-        ) {
-          console.log('Queue film list includes this film!');
+        } else if (localStorage.getItem(QUEUE).includes(JSON.stringify(data))) {
+          console.log('queue film list includes this film!');
         } else {
           queueArr = JSON.parse(localStorage.getItem(QUEUE));
           queueArr.push(data);
           localStorage.setItem(QUEUE, JSON.stringify(queueArr));
-          btnQueue.textContent = 'remove from watched';
-          btnQueue.removeEventListener('click', onClickQueue);
+
+          btnQueue.removeEventListener('click', onHandleQueue);
+          btnQueue.textContent = 'remove from queue';
+          btnQueue.addEventListener('click', onHandleRemoveQueue);
           // снять обработчик
         }
       }
 
-      // btns listeners
-      btnQueue.addEventListener('click', onClickQueue);
+      function onHandleRemoveQueue() {
+        const queueFilm = JSON.parse(localStorage.getItem(QUEUE));
+
+        const queueFilmToRemove = queueFilm.findIndex(el => el.id === data.id);
+
+        queueFilm.splice(queueFilmToRemove, 1);
+
+        localStorage.setItem(QUEUE, JSON.stringify(queueFilm));
+
+        btnQueue.removeEventListener('click', onHandleRemoveQueue);
+        btnQueue.textContent = 'add to queue';
+        btnQueue.addEventListener('click', onHandleQueue);
+      }
+
+      // // btns listeners
+      // btnQueue.addEventListener('click', onClickQueue);
 
       // !!!
     })
