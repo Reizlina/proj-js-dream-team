@@ -22,7 +22,7 @@ const onBtnWatchedClickIsActive = e => {
   refs.btnQueue.classList.remove('is-active');
 
   changedData(savedWatched);
-  gallery.insertAdjacentHTML('beforeend', makeMarkup(savedWatched));
+  gallery.innerHTML = makeMarkup(savedWatched);
 
   // gallery.innerHTML = makeMarkup(savedWatched);
   // unsplashApi.fetchPopularFilms().then(result => {
