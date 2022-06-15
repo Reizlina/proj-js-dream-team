@@ -1,15 +1,15 @@
 import { UnsplashApi } from './themoviedb';
 // import { createPagination } from './pagination';
-// import { changeData } from './index';
-// import { renderFilms } from './modal';
-// import { makeMarkup } from './searchfilms';
-// import { markup } from './fetch-film';
 
+// variables
 const unsplashApi = new UnsplashApi();
-const savedWatched = JSON.parse(localStorage.getItem('watched'));
-// console.log(savedWatched);
-// const arrFilms = [];
 const gallery = document.querySelector('.gallery__list');
+const savedWatched = JSON.parse(localStorage.getItem('watched'));
+const savedQueue = JSON.parse(localStorage.getItem('queue'));
+
+// queue first render
+changedData(savedQueue);
+gallery.innerHTML = makeMarkup(savedQueue);
 
 // refs
 const refs = {
@@ -17,38 +17,15 @@ const refs = {
   btnQueue: document.querySelector('.buttons__queue'),
 };
 
+// onBtnWatchedClickIsActive
+
 const onBtnWatchedClickIsActive = e => {
   e.target.classList.add('is-active');
   refs.btnQueue.classList.remove('is-active');
 
   changedData(savedWatched);
   gallery.innerHTML = makeMarkup(savedWatched);
-
-  // gallery.innerHTML = makeMarkup(savedWatched);
-  // unsplashApi.fetchPopularFilms().then(result => {
-  //   changeData(result.data).then(() => {
-  //     console.log(result.data.results);
-  //     gallery.innerHTML = makeMarkup(result.data.results);
-  //   });
-  // });
 };
-
-function makeMarkup(data) {
-  // console.log(data);
-  let markup = data
-    .map(
-      data => `<li class="gallery__item" data-id="${data.id}">
-      <img class="gallery__img" src="${data.poster_path}" alt="movie image" height="455px">
-      <h3 class="gallery__title">${data.original_title}</h3>
-      <p class="gallery__text">
-         ${data.genres}
-        <span class="gallery__year">${data.release_date}</span>
-      </p>
-    </li>`
-    )
-    .join('');
-  return markup;
-}
 
 refs.btnWatched.addEventListener('click', onBtnWatchedClickIsActive);
 
@@ -57,11 +34,14 @@ refs.btnWatched.addEventListener('click', onBtnWatchedClickIsActive);
 const onBtnQueueClickIsActive = e => {
   e.target.classList.add('is-active');
   refs.btnWatched.classList.remove('is-active');
+
+  changedData(savedQueue);
+  gallery.innerHTML = makeMarkup(savedQueue);
 };
 
 refs.btnQueue.addEventListener('click', onBtnQueueClickIsActive);
 
-// !
+// markup functions
 
 function changedData(params) {
   const getIds = localStorage.getItem('genre_ids');
@@ -95,4 +75,21 @@ function changedData(params) {
       param.genres = 'genre unknown';
     }
   });
+}
+
+function makeMarkup(data) {
+  // console.log(data);
+  let markup = data
+    .map(
+      data => `<li class="gallery__item" data-id="${data.id}">
+      <img class="gallery__img" src="${data.poster_path}" alt="movie image" height="455px">
+      <h3 class="gallery__title">${data.original_title}</h3>
+      <p class="gallery__text">
+         ${data.genres}
+        <span class="gallery__year">${data.release_date}</span>
+      </p>
+    </li>`
+    )
+    .join('');
+  return markup;
 }

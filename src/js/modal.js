@@ -118,11 +118,25 @@ function openModal(event) {
       }
 
       function onClickQueue() {
-        if (!queue.find(el => el.id === data.id)) {
-          queue.push(data);
+        let queueArr = [];
+        if (!localStorage.getItem(QUEUE)) {
+          queueArr.push(data);
+          localStorage.setItem(QUEUE, JSON.stringify(queueArr));
+          btnQueue.textContent = 'remove from watched';
+          btnQueue.removeEventListener('click', onClickQueue);
+          // снять обработчик
+        } else if (
+          localStorage.getItem(QUEUE).includes(JSON.stringify(data))
+        ) {
+          console.log('Queue film list includes this film!');
+        } else {
+          queueArr = JSON.parse(localStorage.getItem(QUEUE));
+          queueArr.push(data);
+          localStorage.setItem(QUEUE, JSON.stringify(queueArr));
+          btnQueue.textContent = 'remove from watched';
+          btnQueue.removeEventListener('click', onClickQueue);
+          // снять обработчик
         }
-
-        localStorage.setItem(QUEUE, JSON.stringify(queue));
       }
 
       // btns listeners
