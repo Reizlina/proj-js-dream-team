@@ -113,7 +113,7 @@ function openModal(event) {
       );
 
       if (watchedFilmFromStorage) {
-        // btnWatched.addEventListener('click', onHandleRemoveWatch);
+        btnWatched.addEventListener('click', onHandleRemoveWatch);
         btnWatched.textContent = 'remove from watched';
       } else {
         btnWatched.addEventListener('click', onHandleWatch);
@@ -141,10 +141,19 @@ function openModal(event) {
         }
       }
 
-      // function onHandleRemoveWatch() {
-      //   // Нужно сначала достать с локала массив потом найти через файндИндекс
-      //   // наш фильм и потом сплайсом вырезать фильм и снова положить в локал
-      // }
+      function onHandleRemoveWatch() {
+        // 1 Нужно сначала достать с локала массив
+        const watchedFilm = JSON.parse(localStorage.getItem(WATCHED));
+          console.log(watchedFilm)
+        // 2 потом найти через файндИндекс наш фильм
+        const watchedFilmToRemove = watchedFilm.findIndex(el => el.id === watchedFilmFromStorage.id);
+        console.log(watchedFilmToRemove);
+        // 3 сплайсом вырезать фильм
+        watchedFilm.splice(watchedFilmToRemove, 1);
+        console.log(watchedFilm);
+        // 4 и снова положить в локал
+        localStorage.setItem(WATCHED, JSON.stringify(watchedFilm));
+      }
 
       function onClickQueue() {
         let queueArr = [];

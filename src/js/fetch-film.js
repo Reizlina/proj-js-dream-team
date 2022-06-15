@@ -10,7 +10,6 @@ const unsplashApi = new UnsplashApi();
 
 unsplashApi.fetchPopularFilms().then(result => {
   changeData(result.data).then(() => {
-    console.log(result.data.results);
     gall.innerHTML = markup(result.data.results);
 
     const pagination = createPagination({
