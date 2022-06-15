@@ -158,6 +158,7 @@ function openModal(event) {
         watchedFilm.splice(watchedFilmToRemove, 1);
 
         localStorage.setItem(WATCHED, JSON.stringify(watchedFilm));
+        gallaryList.innerHTML = makeMarkup(watchedFilm);
 
         btnWatched.removeEventListener('click', onHandleRemoveWatch);
         btnWatched.textContent = 'add to Watched';
@@ -226,6 +227,8 @@ function openModal(event) {
 
         localStorage.setItem(QUEUE, JSON.stringify(queueFilm));
 
+        gallaryList.innerHTML = makeMarkup(queueFilm);
+
         btnQueue.removeEventListener('click', onHandleRemoveQueue);
         btnQueue.textContent = 'add to queue';
         btnQueue.addEventListener('click', onHandleQueue);
@@ -265,6 +268,23 @@ function openModal(event) {
     closeModalBtn.removeEventListener('click', toggleModal);
     window.removeEventListener('keydown', closeModalEsc);
     backdrop.removeEventListener('click', closeModalBackdrop);
+  }
+
+  function makeMarkup(data) {
+    // console.log(data);
+    let markup = data
+      .map(
+        data => `<li class="gallery__item" data-id="${data.id}">
+      <img class="gallery__img" src="${data.poster_path}" alt="movie image" height="455px">
+      <h3 class="gallery__title">${data.original_title}</h3>
+      <p class="gallery__text">
+         ${data.genres}
+        <span class="gallery__year">${data.release_date}</span>
+      </p>
+    </li>`
+      )
+      .join('');
+    return markup;
   }
 }
 gallaryList.addEventListener('click', openModal);
