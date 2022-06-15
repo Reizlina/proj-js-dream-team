@@ -1,12 +1,10 @@
 import { UnsplashApi } from './themoviedb';
-// import { createPagination } from './pagination';
 
 // variables
 const unsplashApi = new UnsplashApi();
 const gallery = document.querySelector('.gallery__list');
 let savedWatched = null;
 let savedQueue = null;
-console.log('savedQueue :', savedQueue);
 
 try {
   savedQueue = localStorage.getItem('queue');
