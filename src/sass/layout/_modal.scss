@@ -25,7 +25,7 @@
   background: $header-main-color;
   width: 100%;
   border-radius: 2px;
-  height: 100%;
+  height: 96vh;
   overflow: auto;
 
   &__backcall {
@@ -235,6 +235,8 @@
     &__backcall {
       display: flex;
       flex-direction: row;
+      align-items: flex-start;
+      // !
     }
 
     &__img {
