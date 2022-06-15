@@ -87,21 +87,45 @@ function openModal(event) {
 
       modalContainer.innerHTML = renderFilms(data);
 
-      // !!!
-
       // btn refs
       const btnWatched = document.querySelector('.modal__button-org');
       const btnQueue = document.querySelector('.modal__button-trans');
 
-      btnWatched.addEventListener('click', onHandleWatch);
+      let watchedDataFromStorage = null;
+
+      try {
+        watchedDataFromStorage = localStorage.getItem(WATCHED);
+        watchedDataFromStorage =
+          watchedDataFromStorage === null
+            ? undefined
+            : JSON.parse(watchedDataFromStorage);
+      } catch (error) {
+        console.error('Get state error: ', error.message);
+      }
+
+      // const watchedDataFromStorage = JSON.parse(
+      //   localStorage.getItem('watched')
+      // );
+
+      // !!!
+      const watchedFilmFromStorage = watchedDataFromStorage.find(
+        el => el.id === data.id
+      );
+
+      if (watchedFilmFromStorage) {
+        // btnWatched.addEventListener('click', onHandleRemoveWatch);
+        btnWatched.textContent = 'remove from watched';
+      } else {
+        btnWatched.addEventListener('click', onHandleWatch);
+      }
 
       function onHandleWatch() {
         let watchedArr = [];
+
         if (!localStorage.getItem(WATCHED)) {
           watchedArr.push(data);
           localStorage.setItem(WATCHED, JSON.stringify(watchedArr));
-          btnWatched.textContent = 'remove from watched';
-          btnWatched.removeEventListener('click', onHandleWatch);
+          //btnWatched.removeEventListener('click', onHandleWatch);
           // снять обработчик
         } else if (
           localStorage.getItem(WATCHED).includes(JSON.stringify(data))
@@ -111,11 +135,16 @@ function openModal(event) {
           watchedArr = JSON.parse(localStorage.getItem(WATCHED));
           watchedArr.push(data);
           localStorage.setItem(WATCHED, JSON.stringify(watchedArr));
-          btnWatched.textContent = 'remove from watched';
-          btnWatched.removeEventListener('click', onHandleWatch);
+          //btnWatched.textContent = 'remove from watched';
+          //btnWatched.removeEventListener('click', onHandleWatch);
           // снять обработчик
         }
       }
+
+      // function onHandleRemoveWatch() {
+      //   // Нужно сначала достать с локала массив потом найти через файндИндекс
+      //   // наш фильм и потом сплайсом вырезать фильм и снова положить в локал
+      // }
 
       function onClickQueue() {
         if (!queue.find(el => el.id === data.id)) {
