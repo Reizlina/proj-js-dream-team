@@ -1,9 +1,10 @@
 .gallery {
   padding: 20px 0;
-  display: flex;
-  justify-content: center;
   &__list {
     margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   &__item:not(:last-child) {
@@ -64,14 +65,13 @@
 
 @media (min-width: 1024px) {
   .gallery {
-
     &__item {
       width: calc(33% - 15px);
       margin: 8px;
     }
 
     &__img {
-    max-width: 309px;
-  }
+      max-width: 309px;
+    }
   }
 }
