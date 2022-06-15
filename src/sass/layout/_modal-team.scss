@@ -1,0 +1,279 @@
+* {
+  box-sizing: border-box;
+}
+//backdrop
+.backdrops--hidden {
+  // opacity: 0;
+  visibility: hidden;
+}
+.backdrops--hidden .teamlist {
+  transform: scaleY(0);
+}
+.teamlist {
+  position: relative;
+  background-color: #fff5f6;
+  border-radius: 24px;
+  box-shadow: 0px 8px 30px rgba(212, 20, 67, 0.1);
+  &__backdrop {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50px;
+    left: -120px;
+    width: auto;
+    height: auto;
+    z-index: 1000;
+    // opacity: 1;
+    // transition: opacity 0.5s;
+  }
+  &__close {
+    position: absolute;
+    top: 10px;
+    left: 300px;
+    width: 30px;
+    height: 30px;
+    transition: 0.3s;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 2px;
+      top: 50%;
+      left: 50%;
+      background-color: #fff;
+    }
+    &::before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    &:hover::before,
+    &:hover::after {
+      background-color: #000;
+    }
+  }
+  /* Slideshow container */
+  &__slideshow {
+    width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+  /* Hide the images by default */
+  &__card {
+    display: none;
+  }
+  &__footimg {
+    height: 500px;
+  }
+  /* Caption text */
+  &__text {
+    color: #f2f2f2;
+    font-size: 25px;
+    padding: 8px 165px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    // text-align: center;
+    &--bottom {
+      top: 375px;
+    }
+    &--middle {
+      padding-left: 430px;
+      top: 450px;
+    }
+  }
+  /* Number text (1/6 etc) */
+  &__numbertext {
+    color: rgb(229, 147, 147);
+    font-size: 12px;
+    padding: 8px 25px;
+    position: absolute;
+    top: 0;
+  }
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+// @keyframes fade {
+//   from {opacity: 0;}
+//   to {opacity: 1;}
+// }
+
+/* The dots/bullets/indicators */
+// .dot {
+//   cursor: pointer;
+//   height: 15px;
+//   width: 15px;
+//   margin: 0 2px;
+//   background-color: #bbb;
+//   border-radius: 50%;
+//   display: inline-block;
+//   transition: background-color 0.6s ease;
+// }
+
+// .active, .dot:hover {
+//   background-color: #717171;
+// }
+
+/* Fading animation */
+@media (max-width: 1271px) {
+  .teamlist__backdrop {
+    left: -170px;
+  }
+}
+
+@media (max-width: 1201px) {
+  .teamlist__backdrop {
+    left: -190px;
+  }
+  .teamlist__text {
+    display: none;
+  }
+  .teamlist__numbertext {
+    padding: 0;
+  }
+}
+@media (max-width: 1121px) {
+  .teamlist__backdrop {
+    left: -240px;
+  }
+}
+@media (max-width: 1041px) {
+  .teamlist__backdrop {
+    left: -280px;
+  }
+}
+@media (max-width: 1001px) {
+  .teamlist__backdrop {
+    left: -250px;
+  }
+  .teamlist__slideshow {
+    width: 900px;
+  }
+  .teamlist__footimg {
+    height: 450px;
+  }
+}
+@media (max-width: 901px) {
+  .teamlist__backdrop {
+    left: -250px;
+  }
+  .teamlist__slideshow {
+    width: 800px;
+  }
+  .teamlist__footimg {
+    height: 400px;
+  }
+}
+@media (max-width: 801px) {
+  .teamlist__backdrop {
+    left: -240px;
+  }
+  .teamlist__slideshow {
+    width: 700px;
+  }
+  .teamlist__footimg {
+    height: 350px;
+  }
+}
+@media (max-width: 768px) {
+  .teamlist__backdrop {
+    left: -210px;
+  }
+  .teamlist__slideshow {
+    width: 600px;
+  }
+  .teamlist__footimg {
+    height: 300px;
+  }
+}
+@media (max-width: 701px) {
+  .teamlist__backdrop {
+    left: -250px;
+  }
+}
+@media (max-width: 651px) {
+  .teamlist__backdrop {
+    left: -270px;
+  }
+}
+@media (max-width: 601px) {
+  .teamlist__slideshow {
+    width: 560px;
+  }
+  .teamlist__footimg {
+    height: 280px;
+  }
+}
+@media (max-width: 551px) {
+  .teamlist__slideshow {
+    width: 500px;
+  }
+  .teamlist__footimg {
+    height: 250px;
+  }
+}
+@media (max-width: 481px) {
+  .teamlist__slideshow {
+    width: 400px;
+  }
+  .teamlist__footimg {
+    height: 200px;
+  }
+}
+@media (max-width: 401px) {
+  .teamlist__slideshow {
+    width: 300px;
+  }
+  .teamlist__footimg {
+    height: 150px;
+  }
+}
+@media (max-width: 351px) {
+  .teamlist__backdrop {
+    left: -290px;
+  }
+}
+@media (max-width: 321px) {
+  .teamlist__slideshow {
+    width: 250px;
+  }
+  .teamlist__footimg {
+    height: 125px;
+  }
+}
