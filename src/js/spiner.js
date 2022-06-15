@@ -1,4 +1,4 @@
-export function renderSpinner(spin) {
+export const renderSpinner = () => {
   return `<div class="backdrop-loader"><div class="loader">
         <div><div></div></div>
         <div><div></div></div>
@@ -13,4 +13,4 @@ export function renderSpinner(spin) {
         <div><div></div></div>
         <div><div></div></div>
       </div></div>`;
-}
+};

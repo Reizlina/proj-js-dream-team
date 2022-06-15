@@ -4,12 +4,29 @@ import { UnsplashApi } from './themoviedb';
 // variables
 const unsplashApi = new UnsplashApi();
 const gallery = document.querySelector('.gallery__list');
-const savedWatched = JSON.parse(localStorage.getItem('watched'));
-const savedQueue = JSON.parse(localStorage.getItem('queue'));
+let savedWatched = null;
+let savedQueue = null;
+console.log('savedQueue :', savedQueue);
+
+try {
+  savedQueue = localStorage.getItem('queue');
+  savedQueue = savedQueue === null ? [] : JSON.parse(savedQueue);
+} catch (error) {
+  console.error('Get state error: ', error.message);
+}
+
+try {
+  savedWatched = localStorage.getItem('watched');
+  savedWatched = savedWatched === null ? [] : JSON.parse(savedWatched);
+} catch (error) {
+  console.error('Get state error: ', error.message);
+}
 
 // queue first render
-changedData(savedQueue);
-gallery.innerHTML = makeMarkup(savedQueue);
+if (savedQueue.length) {
+  changedData(savedQueue);
+  gallery.innerHTML = makeMarkup(savedQueue);
+}
 
 // refs
 const refs = {
@@ -23,6 +40,13 @@ const onBtnWatchedClickIsActive = e => {
   e.target.classList.add('is-active');
   refs.btnQueue.classList.remove('is-active');
 
+  try {
+    savedWatched = localStorage.getItem('watched');
+    savedWatched = savedWatched === null ? [] : JSON.parse(savedWatched);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
+  }
+
   changedData(savedWatched);
   gallery.innerHTML = makeMarkup(savedWatched);
 };
@@ -34,6 +58,13 @@ refs.btnWatched.addEventListener('click', onBtnWatchedClickIsActive);
 const onBtnQueueClickIsActive = e => {
   e.target.classList.add('is-active');
   refs.btnWatched.classList.remove('is-active');
+
+  try {
+    savedQueue = localStorage.getItem('queue');
+    savedQueue = savedQueue === null ? [] : JSON.parse(savedQueue);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
+  }
 
   changedData(savedQueue);
   gallery.innerHTML = makeMarkup(savedQueue);
