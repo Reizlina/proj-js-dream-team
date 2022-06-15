@@ -11,14 +11,21 @@
   function toggleModal() {
     refs.modal.classList.toggle('backdrops--hidden');
     window.addEventListener('keydown', closeModalEscape);
+    refs.modal.removeEventListener('click', closeModalBackdrop);
   }
+
+  refs.modal.addEventListener('click', closeModalBackdrop);
 
   function closeModalEscape(event) {
     if (event.code === 'Escape') {
       toggleModal();
     }
   }
-
+  function closeModalBackdrop(event) {
+    if (event.target === event.currentTarget) {
+      toggleModal();
+    }
+  }
   refs.modal.addEventListener('click', closeModalScreen);
 
   function closeModalScreen(event) {

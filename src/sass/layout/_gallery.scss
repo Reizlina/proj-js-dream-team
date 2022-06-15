@@ -9,6 +9,7 @@
 
   &__item:not(:last-child) {
     margin-bottom: 20px;
+    max-width: 100%;
   }
 
   &__img {
@@ -18,11 +19,13 @@
   &__title {
     text-transform: uppercase;
     margin: 10px 0 5px 0;
+    max-width: 280px;
   }
 
   &__text {
     color: $accent-color;
     margin-bottom: 5px;
+    max-width: 280px;
   }
 
   &__year {
