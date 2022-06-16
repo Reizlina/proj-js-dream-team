@@ -34,20 +34,12 @@
     align-items: center;
   }
 
-  // &__img-box {
-  //   display: flex;
-
-  // }
-
   &__img {
     margin-bottom: 20px;
     max-width: 280;
     border-radius: 6px;
-    // display: flex;
-    // align-items: center;
 
     width: 100%;
-    // height: 360px;
     object-fit: cover;
     object-position: top;
   }
@@ -125,6 +117,7 @@
 
     margin-right: 20px;
     padding: 13px 10px;
+    cursor: pointer;
 
     background-color: $accent-color;
     border-color: $accent-color;
@@ -151,7 +144,7 @@
     border: 1px solid $primary-bg-color;
 
     background-color: transparent;
-
+    cursor: pointer;
     border-radius: 5px;
     padding: 13px 13px;
 
@@ -231,17 +224,20 @@
   .modal {
     padding: 40px 20px;
     height: 100%;
+    max-width: 800px;
 
     &__backcall {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
+      justify-content: space-around;
+
       // !
     }
-
+    &__text-content {
+      width: 50%;
+    }
     &__img {
-      // width: 100%;
-      height: 478px;
       margin-right: 16px;
     }
     &__title {

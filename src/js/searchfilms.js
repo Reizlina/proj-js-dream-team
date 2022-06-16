@@ -2,6 +2,7 @@ import { UnsplashApi } from './themoviedb';
 import { changeData } from './index';
 import { createPagination } from './pagination';
 import debounce from 'lodash.debounce';
+import { renderSpinner } from './spiner';
 
 // refs
 const refs = {
@@ -21,37 +22,44 @@ const onSubmitSearchFilms = async e => {
   const value = refs.input.value.trim().toLowerCase();
   unsplashApi.searchQuery = value;
 
-  unsplashApi.searchFilm().then(result => {
-    changeData(result.data).then(() => {
-      if (result.data.results.length === 0) {
-        refs.errSr.style.opacity = 1;
-      } else {
-        refs.list.innerHTML = makeMarkup(result.data.results);
-      }
+  document.body.insertAdjacentHTML('beforebegin', renderSpinner());
 
-      const pagination = createPagination({
-        totalItems: result.data.total_results,
-        page: result.data.page,
-        totalPages: result.data.total_pages,
-      });
+  unsplashApi
+    .searchFilm()
+    .then(result => {
+      changeData(result.data).then(() => {
+        if (result.data.results.length === 0) {
+          refs.errSr.style.opacity = 1;
+        } else {
+          refs.list.innerHTML = makeMarkup(result.data.results);
+        }
 
-      pagination.on('afterMove', event => {
-        const currentPage = event.page;
-        unsplashApi.page = currentPage;
+        const pagination = createPagination({
+          totalItems: result.data.total_results,
+          page: result.data.page,
+          totalPages: result.data.total_pages,
+        });
 
-        unsplashApi
-          .searchFilm()
-          .then(result => {
-            changeData(result.data).then(() => {
-              refs.list.innerHTML = makeMarkup(result.data.results);
+        pagination.on('afterMove', event => {
+          const currentPage = event.page;
+          unsplashApi.page = currentPage;
+
+          unsplashApi
+            .searchFilm()
+            .then(result => {
+              changeData(result.data).then(() => {
+                refs.list.innerHTML = makeMarkup(result.data.results);
+              });
+            })
+            .catch(error => {
+              console.log(error);
             });
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        });
       });
+    })
+    .finally(() => {
+      document.querySelector('.backdrop-loader').remove();
     });
-  });
   refs.errSr.style.opacity = 0;
 };
 

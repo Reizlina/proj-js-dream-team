@@ -1,7 +1,7 @@
 .gallery {
   padding: 20px 0;
   &__list {
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -10,6 +10,7 @@
   &__item:not(:last-child) {
     margin-bottom: 20px;
     max-width: 100%;
+    cursor: pointer;
   }
 
   &__img {
@@ -49,7 +50,7 @@
     padding: 60px 0;
 
     &__list {
-      margin-bottom: 60px;
+      // margin-bottom: 60px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -77,4 +78,11 @@
       max-width: 309px;
     }
   }
+}
+
+// Text to empty library
+
+.library__text {
+  color: $accent-color;
+  font-size: 50px;
 }
