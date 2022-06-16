@@ -1,5 +1,4 @@
 import { UnsplashApi } from './themoviedb';
-
 // variables
 const unsplashApi = new UnsplashApi();
 const gallery = document.querySelector('.gallery__list');
@@ -75,7 +74,6 @@ refs.btnQueue.addEventListener('click', onBtnQueueClickIsActive);
 function changedData(params) {
   const getIds = localStorage.getItem('genre_ids');
   const parseIds = JSON.parse(getIds);
-  console.log(params);
   return params.forEach(param => {
     param.genres.forEach((genre, ind, arr) => {
       for (let i = 0; i < parseIds.length; i += 1) {

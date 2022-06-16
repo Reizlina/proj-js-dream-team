@@ -37,11 +37,12 @@
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
-  .footer {
-    padding: 0px;
-    max-width: 734px;
-  }
-}
+
+    .footer {
+        padding: 0px;
+        // max-width: 734px;
+    }}
+
 
 @media (max-width: 480px) {
   .footer__aside,
@@ -52,7 +53,9 @@
   }
 }
 @media (max-width: 320px) {
-  .footer__content {
-    padding: 30px 4px;
-  }
+
+    .footer__content {
+    padding: 30px;    
+    }
 }
+
