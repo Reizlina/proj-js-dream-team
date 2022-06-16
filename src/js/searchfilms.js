@@ -1,6 +1,8 @@
 import { UnsplashApi } from './themoviedb';
 import { changeData } from './index';
+import { createPagination } from './pagination';
 import debounce from 'lodash.debounce';
+import { renderSpinner } from './spiner';
 
 // refs
 const refs = {
@@ -9,6 +11,7 @@ const refs = {
   errSr: document.querySelector('.err-sr'),
   input: document.querySelector('.search-films__query'),
 };
+const containerPagination = document.querySelector('#pagination');
 
 // variables
 const unsplashApi = new UnsplashApi();
@@ -16,49 +19,56 @@ const unsplashApi = new UnsplashApi();
 // make markup
 const onSubmitSearchFilms = async e => {
   e.preventDefault();
-  unsplashApi.fetchPopularFilms().then(result => {
-    changeData(result.data).then(() => {
-      refs.list.innerHTML = makeMarkup(result.data.results);
-    });
-  });
-  refs.errSr.style.opacity = 0;
-
   const value = refs.input.value.trim().toLowerCase();
-  console.log(value);
-
   unsplashApi.searchQuery = value;
 
-  // let searchQueryValue = e.currentTarget.elements.searchQuery.value;
-  // unsplashApi.searchQuery = searchQueryValue;
-  // console.log(searchQueryValue);
+  document.body.insertAdjacentHTML('beforebegin', renderSpinner());
 
-  try {
-    const { data } = await unsplashApi.searchFilm();
+  unsplashApi
+    .searchFilm()
+    .then(result => {
+      changeData(result.data).then(() => {
+        if (result.data.results.length === 0) {
+          refs.errSr.style.opacity = 1;
+        } else {
+          refs.list.innerHTML = makeMarkup(result.data.results);
+        }
 
-    console.log(data.results);
+        const pagination = createPagination({
+          totalItems: result.data.total_results,
+          page: result.data.page,
+          totalPages: result.data.total_pages,
+        });
 
-    if (data.total_pages === 0) {
-      refs.errSr.style.opacity = 1;
-    } else {
-      changeData(data).then(() => {
-        refs.list.innerHTML = makeMarkup(data.results);
-        refs.errSr.style.opacity = 0;
+        pagination.on('afterMove', event => {
+          const currentPage = event.page;
+          unsplashApi.page = currentPage;
+
+          unsplashApi
+            .searchFilm()
+            .then(result => {
+              changeData(result.data).then(() => {
+                refs.list.innerHTML = makeMarkup(result.data.results);
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        });
       });
-    }
-  } catch (err) {
-    console.log(err);
-  }
+    })
+    .finally(() => {
+      document.querySelector('.backdrop-loader').remove();
+    });
+  refs.errSr.style.opacity = 0;
 };
 
-refs.form.addEventListener('input', debounce(onSubmitSearchFilms, 300));
-// refs.form.addEventListener('submit', onSubmitSearchFilms);
+refs.form.addEventListener('submit', onSubmitSearchFilms);
 
-// markup function
-
-function makeMarkup(data) {
+export function makeMarkup(data) {
   let markup = data
     .map(
-      data => `<li class="gallery__item">
+      data => `<li class="gallery__item" data-id="${data.id}">
       <img class="gallery__img" src="${data.poster_path}" alt="movie image" height="455px">
       <h3 class="gallery__title">${data.original_title}</h3>
       <p class="gallery__text">

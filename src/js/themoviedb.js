@@ -75,19 +75,12 @@ export class UnsplashApi {
   infoAboutFilm(movie_id) {
     return axios.get(
       `${this.#BASE_URL}movie/${movie_id}?api_key=${this.#API_KEY}&`
-      // {
-      // params: {
-      //   page: this.page,
-      // },
-      // }
     );
   }
-
-  //   incrementPage() {
-  //     this.page += 1;
-  //   }
-
-  //   newPage() {
-  //     this.page = 1;
-  //   }
 }
+
+// library markup
+
+  // libraryMarkup(arr_obj) {
+
+  // }

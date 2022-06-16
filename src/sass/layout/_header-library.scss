@@ -76,14 +76,14 @@
   margin-top: 66px;
 
   &__watched {
-    padding: 13px 46px;
+    padding: 13px 36px;
     margin-right: 20px;
     color: $header-main-color;
     transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   &__queue {
-    padding: 13px 57px;
+    padding: 13px 46px;
     color: $header-main-color;
     transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -119,13 +119,12 @@
       transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-
-      &__link:focus {
-        color: $accent-color;
-      }
+    &__link:focus {
+      color: $accent-color;
+    }
   }
 
-  .button {
+  .buttons {
     margin-top: 52px;
 
     &__watched {

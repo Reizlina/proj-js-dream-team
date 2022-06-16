@@ -1,13 +1,16 @@
 .gallery {
   padding: 20px 0;
-  display: flex;
-  justify-content: center;
   &__list {
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   &__item:not(:last-child) {
     margin-bottom: 20px;
+    max-width: 100%;
+    cursor: pointer;
   }
 
   &__img {
@@ -17,11 +20,13 @@
   &__title {
     text-transform: uppercase;
     margin: 10px 0 5px 0;
+    max-width: 280px;
   }
 
   &__text {
     color: $accent-color;
     margin-bottom: 5px;
+    max-width: 280px;
   }
 
   &__year {
@@ -45,7 +50,7 @@
     padding: 60px 0;
 
     &__list {
-      margin-bottom: 60px;
+      // margin-bottom: 60px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -64,14 +69,20 @@
 
 @media (min-width: 1024px) {
   .gallery {
-
     &__item {
       width: calc(33% - 15px);
       margin: 8px;
     }
 
     &__img {
-    max-width: 309px;
+      max-width: 309px;
+    }
   }
-  }
+}
+
+// Text to empty library
+
+.library__text {
+  color: $accent-color;
+  font-size: 50px;
 }
