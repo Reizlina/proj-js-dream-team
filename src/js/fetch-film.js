@@ -1,39 +1,45 @@
 import { UnsplashApi } from './themoviedb';
 import { createPagination } from './pagination';
 import { changeData } from './index';
+import { renderSpinner } from './spiner';
 
 const containerPagination = document.querySelector('#pagination');
 
 const gall = document.querySelector('.gallery__list');
 
 const unsplashApi = new UnsplashApi();
-
+document.body.insertAdjacentHTML('beforebegin', renderSpinner());
 unsplashApi.fetchPopularFilms().then(result => {
-  changeData(result.data).then(() => {
-    gall.innerHTML = markup(result.data.results);
+  // document.body.insertAdjacentHTML('beforebegin', renderSpinner());
+  changeData(result.data)
+    .then(() => {
+      gall.innerHTML = markup(result.data.results);
 
-    const pagination = createPagination({
-      totalItems: result.data.total_results,
-      page: result.data.page,
-      totalPages: result.data.total_pages,
-    });
+      const pagination = createPagination({
+        totalItems: result.data.total_results,
+        page: result.data.page,
+        totalPages: result.data.total_pages,
+      });
 
-    pagination.on('afterMove', event => {
-      const currentPage = event.page;
-      unsplashApi.page = currentPage;
+      pagination.on('afterMove', event => {
+        const currentPage = event.page;
+        unsplashApi.page = currentPage;
 
-      unsplashApi
-        .fetchPopularFilms()
-        .then(result => {
-          changeData(result.data).then(() => {
-            gall.innerHTML = markup(result.data.results);
+        unsplashApi
+          .fetchPopularFilms()
+          .then(result => {
+            changeData(result.data).then(() => {
+              gall.innerHTML = markup(result.data.results);
+            });
+          })
+          .catch(error => {
+            console.log(error);
           });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      });
+    })
+    .finally(() => {
+      document.querySelector('.backdrop-loader').remove();
     });
-  });
 });
 
 export function markup(elements) {
